@@ -71,3 +71,5 @@ export default function WatchPage({ params }: Props) {
     </div>
   )
 }
+import { notFound, redirect } from 'next/navigation';
+import StreamingPlayer
