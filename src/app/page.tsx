@@ -35,3 +35,24 @@ export default function Home() {
     </>
   )
 }
+
+import { Metadata } from 'next'
+import HeroSlider from '@/components/HeroSlider'
+import AnimeGrid from '@/components/AnimeGrid'
+import { MetadataRoute } from 'next'
+
+export const metadata: Metadata = {
+  title: 'AnimeStream - Real-time MyAnimeList Top Anime Streaming',
+  description: 'Live data from MyAnimeList API. Watch top trending anime: Attack on Titan, Jujutsu Kaisen, Demon Slayer and more in HD quality.',
+  // ... rest of metadata
+}
+
+export default function Home() {
+  return (
+    <>
+      <HeroSlider />
+      <AnimeGrid title="Top Airing Anime" gridKey="top-airing" />
+      <AnimeGrid title="Most Popular Anime" gridKey="top-popular" />
+    </>
+  )
+    }
