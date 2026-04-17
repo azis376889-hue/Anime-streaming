@@ -83,3 +83,65 @@ export default function HeroSlider() {
     </section>
   );
 }
+
+'use client';
+import { useTopAnime } from '@/hooks/useTopAnime';
+import { Play, Star } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+export default function HeroSlider() {
+  const { animes, isLoading } = useTopAnime(1);
+
+  if (isLoading) {
+    return (
+      <div className="h-screen bg-gradient-to-br from-primary to-black animate-pulse" />
+    );
+  }
+
+  const currentAnime = animes[0];
+
+  return (
+    <section className="relative h-screen w-full overflow-hidden">
+      <div
+        className="absolute inset-0 transition-all duration-1000"
+        style={{
+          backgroundImage: `linear-gradient(rgba(10,10,10,0.4), rgba(10,10,10,0.8)), url(${currentAnime?.banner})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="gradient-hero h-full flex items-end pb-32 px-6 md:px-20">
+          <div className="max-w-4xl space-y-8">
+            <div className="inline-flex items-center space-x-2 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+              <span className="text-sm font-medium text-accent">🔥 TOP #1 REAL-TIME</span>
+            </div>
+            
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent leading-tight">
+                {currentAnime?.title}
+              </h1>
+              <div className="flex items-center space-x-4 text-lg">
+                <div className="flex items-center space-x-1">
+                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                  <span>{currentAnime?.rating?.toFixed(1)}</span>
+                </div>
+                <span>{currentAnime?.year}</span>
+                <span>•</span>
+                <span>{currentAnime?.episodes || '?'} eps</span>
+              </div>
+            </div>
+            
+            <Link
+              href={`/watch/${currentAnime?.slug}`}
+              className="group flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-accent to-blue-600 rounded-2xl font-medium text-lg hover:from-blue-500 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-accent/25"
+            >
+              <Play className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <span>Watch Now</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+              }
